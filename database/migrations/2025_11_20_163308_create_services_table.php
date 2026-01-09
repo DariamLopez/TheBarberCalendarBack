@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('code', 20)->nullable()->unique();
+            $table->string('code', 20);
             $table->decimal('default_price', 10, 2)->default(0);
             $table->unsignedInteger('duration_minutes')->nullable();
             $table->decimal('cost_estimate', 10, 2)->nullable();

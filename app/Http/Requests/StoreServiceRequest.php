@@ -25,7 +25,7 @@ class StoreServiceRequest extends FormRequest
             'name' => ['required', 'string', 'max:100', 'min:3'],
             'default_price' => ['required', 'numeric'],
             'is_active' => ['required', 'boolean'],
-            'code' => ['nullable', 'string', 'unique:services,code', 'max:20', 'min:3'],
+            'code' => ['required', 'string', 'max:20', 'min:3'],
             'duration_minutes' => ['nullable', 'numeric'],
             'cost_estimate' => ['nullable', 'numeric'],
         ];

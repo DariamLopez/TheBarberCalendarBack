@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log as FacadesLog;
 
 class UpdateServiceRequest extends FormRequest
 {
@@ -21,9 +22,10 @@ class UpdateServiceRequest extends FormRequest
      */
     public function rules(): array
     {
+        FacadesLog::info(json_encode($this->request->all()));
         return [
             'name' => ['sometimes', 'string', 'max:100', 'min:3'],
-            'code' => ['nullable', 'string', 'unique:services,code', 'max:20', 'min:3'],
+            'code' => ['sometimes', 'string', 'max:20', 'min:3'],
             'default_price' => ['sometimes', 'numeric'],
             'duration_minutes' => ['nullable', 'numeric'],
             'cost_estimate' => ['nullable', 'numeric'],

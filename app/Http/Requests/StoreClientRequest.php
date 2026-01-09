@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreClientRequest extends FormRequest
 {
@@ -21,6 +22,7 @@ class StoreClientRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::info(json_encode($this->request->all()));
         return [
             'name' => ['required', 'string', 'max:100', 'min:3'],
             'phone' => ['required', 'string', 'max:14', 'unique:clients,phone', 'regex:/^(?:\+1\s?)?(?:\(?([2-9][0-9]{2})\)?[\s.-]?([0-9]{3})[\s.-]?([0-9]{4}))$/'],

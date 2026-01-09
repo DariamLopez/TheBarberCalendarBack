@@ -29,7 +29,7 @@ class UpdateWorkerRequest extends FormRequest
             'role' => ['sometimes', 'string', 'max:20', 'min:3'],
             'salary_type' => ['required', 'string'],
             'salary_amount' => ['nullable', 'numeric'],
-            'commision_rate' => ['nullable', 'numeric', 'max_digits:2'],
+            'commission_rate' => ['nullable', 'numeric', 'max_digits:2'],
             'is_active' => ['sometimes', 'boolean']
         ];
     }
