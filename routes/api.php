@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\ManageVisitsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\WorkerController;
@@ -11,6 +12,10 @@ Route::resource('/clients',ClientController::class);
 
 Route::resource('/workers', WorkerController::class);
 
-route::resource('/visits', VisitController::class);
+Route::resource('/visits', VisitController::class);
 
-route::resource('/services', ServiceController::class);
+Route::resource('/services', ServiceController::class);
+
+Route::post('/manage-visits', [ManageVisitsController::class, 'manageVisits']);
+
+

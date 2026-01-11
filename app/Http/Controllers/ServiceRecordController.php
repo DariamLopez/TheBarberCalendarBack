@@ -44,7 +44,9 @@ class ServiceRecordController extends Controller
             'visit_id' => $request->visit_id,
             'service_id' => $request->service_id,
             'worker_id' => $request->worker_id ? $request->worker_id : null,
-            'notes' => $request->notes ? $request->notes : ''
+            'notes' => $request->notes ? $request->notes : '',
+            'commission_amount' => 0,
+            'commission_rate' => 0,
         ]);
 
         return response()->json($service_records);

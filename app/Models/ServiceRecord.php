@@ -54,13 +54,13 @@ class ServiceRecord extends Model
                     $serviceRecord->cost = $service->cost_estimate;
                 }
             }
-            if (is_null($serviceRecord->commision_rate)){
+            if (is_null($serviceRecord->commission_rate)){
                 if($serviceRecord->worker_id){
                     $worker = Worker::find($serviceRecord->worker_id);
-                    $serviceRecord->commision_rate = $worker ? $worker->commission_rate : 0;
+                    $serviceRecord->commission_rate = $worker ? $worker->commission_rate : 0;
                 }
                 else{
-                    $serviceRecord->commision_rate = 0;
+                    $serviceRecord->commission_rate = 0;
                 }
             }
             $serviceRecord->commission_amount = $serviceRecord->calculateCommissionAmount();

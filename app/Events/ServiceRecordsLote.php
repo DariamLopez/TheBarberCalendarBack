@@ -9,7 +9,7 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Number;
+
 
 class ServiceRecordsLote
 {
@@ -20,7 +20,7 @@ class ServiceRecordsLote
      */
     public function __construct(
         public array $services_array,
-        public Number $visit_id,
+        public int $visit_id,
     )
     {
 

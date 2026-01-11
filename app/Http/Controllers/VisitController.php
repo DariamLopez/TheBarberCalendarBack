@@ -44,7 +44,6 @@ class VisitController extends Controller
      */
     public function store(StoreVisitRequest $request)
     {
-        ServiceRecordsLote::dispatch($request->service_array);
         $visit = new Visit;
         $visit->client_id = $request->validated('client_id');
         if ($request->has('notes')){
