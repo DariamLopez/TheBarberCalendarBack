@@ -18,4 +18,4 @@ Route::resource('/services', ServiceController::class);
 
 Route::post('/manage-visits', [ManageVisitsController::class, 'manageVisits']);
 
-
+Route::post('/change-visits-services', [ManageVisitsController::class, 'changeVisitsServices']);

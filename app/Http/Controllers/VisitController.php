@@ -19,7 +19,7 @@ class VisitController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Visit::query()->with('client');
+        $query = Visit::query()->with('client')->with('serviceRecords.service');
         if ($client_id = $request->query('client_id')){
             $query->where('client_id', $client_id);
         }
@@ -30,11 +30,15 @@ class VisitController extends Controller
             $query->where('payment_status', $payment_status);
         }
 
-        $per_page = (int) $request->query('per_page', 15);
         $order_by = $request->query('order_by', 'created_at');
         $order_dir = $request->query('order_dir', 'desc');
 
-        $visits = $query->orderBy($order_by, $order_dir)->paginate($per_page);
+        if ($per_page = $request->query('per_page')) {
+            $visits = $query->orderBy($order_by, $order_dir)->paginate($per_page);
+        }
+        else {
+            $visits = $query->orderBy($order_by, $order_dir)->get();
+        }
 
         return response()->json($visits);
     }
@@ -66,16 +70,7 @@ class VisitController extends Controller
      */
     public function update(UpdateVisitRequest $request, Visit $visit)
     {
-        if($request->has('status')){
-            $visit->status = $request->validated('status');
-        }
-        if($request->has('tax')){
-            $visit->tax = $request->validated('tax');
-        }
-        if($request->has('discount')){
-            $visit->discount = $request->validated('discount');
-        }
-        $visit->save();
+        $visit->update($request->validated());
         return response()->json($visit);
     }
 

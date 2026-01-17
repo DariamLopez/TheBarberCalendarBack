@@ -28,11 +28,9 @@ class ServiceController extends Controller
         if (!is_null($is_active = $request->query('is_active'))) {
             $query->where('is_active', filter_var($is_active, FILTER_VALIDATE_BOOLEAN));
         }
-        if ($per_page = $request->query('per_page')) {
-        }
+
         $order_by = $request->query('order_by', 'name');
         $order_dir = $request->query('order_dir', 'desc');
-        $per_page = (int) $request->query('per_page');
 
         if ($per_page = $request->query('per_page')) {
             $service = $query->orderBy($order_by, $order_dir)->paginate($per_page);

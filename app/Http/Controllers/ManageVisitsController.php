@@ -6,6 +6,7 @@ use App\Events\ServiceRecordsLote;
 use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\StorePaymentRequest;
 use App\Http\Requests\StoreVisitRequest;
+use App\Models\ServiceRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -57,5 +58,32 @@ class ManageVisitsController extends Controller
         $service_records_event = new ServiceRecordsLote($services_array, $visit_id);
         event($service_records_event);
         return $visit;
+    }
+    /**
+     * Change Services of a Visit: create ServiceRecords for each service in the request.
+     * @param Request $request
+     * $request->services: array of service IDs to create ServiceRecords.
+     * @param int $visit_id
+     * */
+    public static function changeVisitsServices(Request $request)
+    {
+        Log::info('ManageVisitsController - changeVisitsServices called', ['request' => $request->all()]);
+
+
+        $new_services_array = $request->services; //
+        $visit_id = $request->visit_id;
+
+        //Obtener service_records asociados a la visit
+        $current_services = ServiceRecord::where('visit_id', $visit_id)->pluck('service_id')->toArray();
+
+        //Eliminar service_records que no esten en el nuevo arreglo
+        $services_to_delete = array_diff($current_services, $new_services_array);
+        ServiceRecord::where('visit_id', $visit_id)->whereIn('service_id', $services_to_delete)->delete();
+
+        //Crear los nuevos service_records
+        $services_to_add = array_diff($new_services_array, $current_services);
+        $service_records_event = new ServiceRecordsLote($services_to_add, $visit_id);
+        event($service_records_event);
+        return response()->json(['message' => 'Service records are being updated.'], 200);
     }
 }
