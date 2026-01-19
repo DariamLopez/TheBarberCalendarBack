@@ -19,7 +19,8 @@ class Worker extends Model
         'salary_type',
         'salary_amount',
         'commission_rate',
-        'is_active'
+        'is_active',
+        'service_category_id'
     ];
 
     /* protected $casts = [
@@ -28,6 +29,10 @@ class Worker extends Model
 
 
     //Relations
+    public function category()
+    {
+        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
+    }
     public function serviceRecords()
     {
         return $this->hasMany(ServiceRecord::class);
@@ -37,7 +42,6 @@ class Worker extends Model
     {
         return $this->hasMany(Payout::class);
     }
-
     //Helpers
     public function getEffectiveCommissionRate(): float
     {

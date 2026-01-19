@@ -25,9 +25,10 @@ class StoreServiceRequest extends FormRequest
             'name' => ['required', 'string', 'max:100', 'min:3'],
             'default_price' => ['required', 'numeric'],
             'is_active' => ['required', 'boolean'],
-            'code' => ['required', 'string', 'max:20', 'min:3'],
+            'code' => ['nullable', 'string', 'max:20', 'min:3'],
             'duration_minutes' => ['nullable', 'numeric'],
             'cost_estimate' => ['nullable', 'numeric'],
+            'service_category_id' => ['required', 'exists:service_categories,id'],
         ];
     }
 }

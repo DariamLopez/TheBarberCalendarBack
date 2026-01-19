@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateServiceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+use function Symfony\Component\String\s;
+
 class ServiceController extends Controller
 {
     /**
@@ -15,7 +17,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Service::query();
+        $query = Service::query()->with('category');
         if ($service_id = $request->query('service_id')) {
             $query->where('id', $service_id);
         }
@@ -47,7 +49,17 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        $service = Service::create($request->validated());
+        Log::info(json_encode($request->validated('service_category_id')));
+        $service = Service::create([
+            'name' => $request->validated('name'),
+            'default_price' => $request->validated('default_price'),
+            'is_active' => $request->validated('is_active'),
+            'code' => $request->validated('code'),
+            'duration_minutes' => $request->validated('duration_minutes'),
+            'cost_estimate' => $request->validated('cost_estimate'),
+            'service_category_id' => $request->validated('service_category_id'),
+        ]);
+
         return response()->json($service);
     }
 

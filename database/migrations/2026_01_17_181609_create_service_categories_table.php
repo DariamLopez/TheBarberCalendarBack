@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('workers', function (Blueprint $table) {
+        Schema::create('service_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name', 100);
-            $table->string('phone', 15)->unique();
-            $table->enum('salary_type', ['hourly', 'fixed', 'commission'])->default('commission');
-            $table->decimal('salary_amount', 10, 2)->nullable();
-            $table->decimal('commission_rate', 5, 2)->nullable();
-            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('workers');
+        Schema::dropIfExists('service_categories');
     }
 };

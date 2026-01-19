@@ -25,11 +25,12 @@ class UpdateServiceRequest extends FormRequest
         FacadesLog::info(json_encode($this->request->all()));
         return [
             'name' => ['sometimes', 'string', 'max:100', 'min:3'],
-            'code' => ['sometimes', 'string', 'max:20', 'min:3'],
+            'code' => ['sometimes', 'nullable', 'string', 'max:20', 'min:3'],
             'default_price' => ['sometimes', 'numeric'],
             'duration_minutes' => ['nullable', 'numeric'],
             'cost_estimate' => ['nullable', 'numeric'],
             'is_active' => ['sometimes', 'boolean'],
+            'service_category_id' => ['sometimes', 'exists:service_categories,id'],
         ];
     }
 }

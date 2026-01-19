@@ -16,7 +16,8 @@ class Service extends Model
         'default_price',
         'duration_minutes',
         'cost_estimate',
-        'is_active'
+        'is_active',
+        'service_category_id'
     ];
 
     //Relations
@@ -25,6 +26,10 @@ class Service extends Model
         return $this->hasMany(ServiceRecord::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(ServiceCategory::class, 'service_category_id');
+    }
     //Scopes
     public function scopeActive($query)
     {

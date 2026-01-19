@@ -26,11 +26,12 @@ class StoreWorkerRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:100', 'min:3'],
             'phone' => ['required', 'string', 'max:14', 'unique:clients,phone', 'unique:workers,phone', 'regex:/^(?:\+1\s?)?(?:\(?([2-9][0-9]{2})\)?[\s.-]?([0-9]{3})[\s.-]?([0-9]{4}))$/'],
-            'role' => ['required', 'string', 'max:20', 'min:3'],
+            'role' => ['nullable', 'string', 'max:20', 'min:3'],
             'salary_type' => ['required', 'string'],
             'salary_amount' => ['nullable', 'numeric'],
             'commission_rate' => ['nullable', 'numeric', 'max_digits:2'],
-            'is_active' => ['sometimes', 'boolean']
+            'is_active' => ['sometimes', 'boolean'],
+            'service_category_id' => ['required', 'exists:service_categories,id'],
         ];
     }
 }

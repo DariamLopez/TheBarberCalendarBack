@@ -26,11 +26,12 @@ class UpdateWorkerRequest extends FormRequest
         return [
             'name' => ['sometimes', 'string', 'max:100', 'min:3'],
             'phone' => ['sometimes', 'string', 'max:14', 'unique:clients,phone', 'regex:/^(?:\+1\s?)?(?:\(?([2-9][0-9]{2})\)?[\s.-]?([0-9]{3})[\s.-]?([0-9]{4}))$/'],
-            'role' => ['sometimes', 'string', 'max:20', 'min:3'],
+            'role' => ['nullable', 'string', 'max:20', 'min:3'],
             'salary_type' => ['required', 'string'],
             'salary_amount' => ['nullable', 'numeric'],
             'commission_rate' => ['nullable', 'numeric', 'max_digits:2'],
-            'is_active' => ['sometimes', 'boolean']
+            'is_active' => ['sometimes', 'boolean'],
+            'service_category_id' => ['sometimes', 'exists:service_categories,id'],
         ];
     }
 }

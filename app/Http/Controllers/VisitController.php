@@ -19,7 +19,7 @@ class VisitController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Visit::query()->with('client')->with('serviceRecords.service');
+        $query = Visit::query()->with('client')->with('serviceRecords.service.category');
         if ($client_id = $request->query('client_id')){
             $query->where('client_id', $client_id);
         }
